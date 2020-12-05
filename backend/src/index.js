@@ -41,7 +41,7 @@ import { isAuth } from "./utils/passport";
 		// The `listen` method launches a web server.
 		server
 			.listen()
-			.then((url) => console.log(`🚀  Server ready at ${url}`));
+			.then((url) => console.log(`🚀  Server ready at ${url.url}`));
 	} catch (e) {
 		console.error(e);
 	}

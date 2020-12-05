@@ -3263,11 +3263,6 @@ globals@^9.18.0:
   resolved "https://registry.yarnpkg.com/globals/-/globals-9.18.0.tgz#aa3896b3e69b487f17e31ed2143d69a8e30c2d8a"
   integrity sha512-S0nG3CLEQiY/ILxqtztTWH/3iRRdyBLw6KMDxnKMchrtbj2OFmehVh0WUCfW3DUrIgx/qFrJPICrq4Z4sTR9UQ==
 
-google-libphonenumber@^3.2.3:
-  version "3.2.10"
-  resolved "https://registry.yarnpkg.com/google-libphonenumber/-/google-libphonenumber-3.2.10.tgz#021a314652747d736a39e2e60dc670f0431425ad"
-  integrity sha512-TsckE9O8QgqaIeaOXPjcJa4/kX3BzFdO1oCbMfmUpRZckml4xJhjJVxaT9Mdt/VrZZkT9lX44eHAEWfJK1tHtw==
-
 got@^9.6.0:
   version "9.6.0"
   resolved "https://registry.yarnpkg.com/got/-/got-9.6.0.tgz#edf45e7d67f99545705de1f7bbeeeb121765ed85"
@@ -4228,14 +4223,6 @@ mongoose-type-email@^1.0.12:
   integrity sha512-hSnNKJ1eJfhsIIzPbxTlddfI+kac7xGXIgKS3FL3bHnrEPEgcRTXX3zuOiXZSY5v8F/bbflK1PBO+gM036CodQ==
   dependencies:
     cryptiles "^4.1.2"
-
-mongoose-type-phone@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/mongoose-type-phone/-/mongoose-type-phone-1.0.1.tgz#f132660c8a81398a12b5411c57f7422d685385a7"
-  integrity sha512-jJWd9nDfYR1HLTSopbJ7K86TgcITMzLMRiEycN8TQISMojI7hBOsigmNEY8C9d+HgUg/4mir9Pz/OWGTelWnxQ==
-  dependencies:
-    cryptiles "^4.1.2"
-    google-libphonenumber "^3.2.3"
 
 mongoose@^5.9.18:
   version "5.9.18"

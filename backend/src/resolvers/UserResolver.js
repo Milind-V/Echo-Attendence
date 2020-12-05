@@ -18,24 +18,6 @@ const saveToRedis = async (id, token) => {
 
 const UserResolvers = {
 	Query: {
-		me: async (parent, args, context) => {
-			const auth = context.isAuth;
-			if (auth) return await UserModel.findById(auth.id).exec();
-			else return new AuthenticationError("Token not valid");
-		},
-
-		user: async (parent, args, context) => {
-			const auth = context.isAuth;
-			if (auth) return await UserModel.findOne(args.filter).exec();
-			else return ForbiddenError("User not found");
-		},
-
-		users: async (parent, args, context) => {
-			const auth = context.isAuth;
-			if (auth) return await UserModel.find(args.filter).exec();
-			else return ForbiddenError("User not found");
-		},
-
 		authGoogle: async (parent, args, context) => {
 			context.req.body = {
 				...context.req.body,
@@ -58,7 +40,6 @@ const UserResolvers = {
 					firstName: data.profile.name.givenName,
 					lastName: data.profile.name.familyName,
 					email: data.profile.emails[0].value,
-					profilePic: data.profile._json.picture,
 					googleProvider: {
 						id: data.profile.id,
 						token: args.accessToken,
@@ -91,40 +72,6 @@ const UserResolvers = {
 					(v) => v !== token
 				);
 				await redis.rewrite(auth.id, { access_tokens: arr });
-				return true;
-			} else return new AuthenticationError("Token not valid");
-		},
-
-		deleteAccount: async (parent, args, context) => {
-			const auth = context.isAuth;
-			if (auth) {
-				if (args.filter) {
-					const users = await UserModel.find(args.filter).exec();
-					if (users && users.length > 0) {
-						await users.forEach(async (v) => {
-							await redis.rewrite(v._id, {
-								access_tokens: [],
-							});
-						});
-						await UserModel.deleteMany(args.filter).exec();
-						return true;
-					} else return ForbiddenError("User not found");
-				}
-				await redis.rewrite(auth.id, { access_tokens: [] });
-				const user = await UserModel.deleteOne({
-					_id: auth.id,
-				}).exec();
-				return user.deletedCount > 0;
-			} else return new AuthenticationError("Token not valid");
-		},
-	},
-	Mutation: {
-		updateUser: async (parent, args, context) => {
-			const auth = context.isAuth;
-			if (auth) {
-				const user = await UserModel.updateOne(args.filter, {
-					$set: args.input,
-				}).exec();
 				return true;
 			} else return new AuthenticationError("Token not valid");
 		},

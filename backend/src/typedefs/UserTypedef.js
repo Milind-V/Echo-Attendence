@@ -6,36 +6,38 @@ const UserTypedef = gql`
 		token: String
 	}
 
-	type User {
+	type Teacher {
 		id: ID!
 		email: EmailAddress!
 		firstName: String!
 		lastName: String!
 		googleProvider: SocialProvider
+		class: [Class]
+	}
+
+	type Student {
+		id: ID!
+		email: EmailAddress!
+		firstName: String!
+		lastName: String!
+		googleProvider: SocialProvider
+		rollno: Int!
+		class: [Class]
 	}
 
 	input UserFilter {
 		_id: ID
 		email: String
-	}
-
-	input UserFields {
-		firstName: String
-		lastName: String
-		email: EmailAddress
+		rollno: Int
 	}
 
 	extend type Query {
-		me: User!
-		user(filter: UserFilter!): User!
-		users(filter: UserFilter!): [User!]!
-		authGoogle(accessToken: String!): String!
-		deleteAccount(filter: UserFilter): Boolean!
+		meTeacher: Teacher!
+		meStudent: Student!
+		student(filter: UserFilter!): Student!
+		students(filter: UserFilter!): [Student]!
+		authGoogle(accessToken: String!, rollno: String): String!
 		logout: Boolean!
-	}
-
-	extend type Mutation {
-		updateUser(filter: UserFilter, input: UserFields): Boolean!
 	}
 `;
 export default UserTypedef;

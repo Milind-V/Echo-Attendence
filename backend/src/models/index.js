@@ -1,3 +1,5 @@
-import UserModel from "./UserModel";
+import { StudentModel, TeacherModel } from "./UserModel";
+import ClassModel from "./ClassModel";
+import AttendenceModel from "./AttendenceModel";
 
-export { UserModel };
+export { StudentModel, TeacherModel, ClassModel, AttendenceModel };

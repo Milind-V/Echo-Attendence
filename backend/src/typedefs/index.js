@@ -2,6 +2,8 @@ import { gql } from "apollo-server";
 import { typeDefs } from "graphql-scalars";
 // Models
 import UserTypedef from "./UserTypedef";
+import ClassTypedef from "./ClassTypedef";
+import AttendenceTypedef from "./AttendenceTypedef";
 
 const root = gql`
 	type Query {
@@ -13,4 +15,10 @@ const root = gql`
 	}
 `;
 
-export default [root, ...typeDefs, UserTypedef];
+export default [
+	root,
+	...typeDefs,
+	UserTypedef,
+	ClassTypedef,
+	AttendenceTypedef,
+];

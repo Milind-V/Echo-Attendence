@@ -21,8 +21,28 @@ const userSchema = new mongoose.Schema({
 		id: String,
 		token: String,
 	},
+	classes: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "class",
+		},
+	],
 });
 
-const user = mongoose.model("user", userSchema);
+const studentSchema = new mongoose.Schema({
+	...userSchema.obj,
+	rollno: {
+		type: Number,
+		required: false,
+		unique: true,
+	},
+});
 
-export default user;
+const teacherSchema = new mongoose.Schema({
+	...userSchema.obj,
+});
+
+const StudentModel = mongoose.model("student", studentSchema);
+const TeacherModel = mongoose.model("teacher", teacherSchema);
+
+export { StudentModel, TeacherModel };
