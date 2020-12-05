@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 const Footer = () => {
 	return (
 		<div className="hero-foot">
-			<div className="container">
-				<div className="content has-text-centere">
+			<div className="container p-3">
+				<div className="content has-text-centered">
 					All rights reserverd || Made in
-					<Link href="https://bulma.io">Bulma</Link> with ❤️.
+					<a href="https://bulma.io"> Bulma</a> with ❤️
 				</div>
 			</div>
 		</div>

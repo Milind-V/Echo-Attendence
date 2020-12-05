@@ -1,14 +1,29 @@
 import React from "react";
 import { RecoilRoot } from "recoil";
-import { Navbar, Footer } from "./components";
 
-function App() {
+import { ApolloProvider } from "@apollo/client";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { BrowserRouter } from "react-router-dom";
+import Routes from "./Routes";
+
+const client = new ApolloClient({
+	uri: process.env.REACT_APP_BACKEND_URL || "http://localhost:4000/",
+	cache: new InMemoryCache(),
+	headers: {
+		authorization: `Bearer ${localStorage.getItem("token")}`,
+	},
+});
+
+const App = () => {
 	return (
 		<RecoilRoot>
-			<Navbar />
-			<Footer />
+			<ApolloProvider client={client}>
+				<BrowserRouter>
+					<Routes />
+				</BrowserRouter>
+			</ApolloProvider>
 		</RecoilRoot>
 	);
-}
+};
 
 export default App;

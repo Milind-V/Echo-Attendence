@@ -7,12 +7,12 @@ const Navbar = () => {
 			<header class="navbar">
 				<div class="container">
 					<div class="navbar-brand">
-						<Link class="navbar-item">
+						<a class="navbar-item">
 							<img
 								src="https://bulma.io/images/bulma-type-white.png"
 								alt="Logo"
 							/>
-						</Link>
+						</a>
 						<span
 							class="navbar-burger burger"
 							data-target="navbarMenuHeroC">
