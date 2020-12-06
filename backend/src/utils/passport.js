@@ -98,4 +98,29 @@ const isAuth = async (req, res) => {
 	return false;
 };
 
-export { isAuth, createJwt, authenticate, authenticateGoogle };
+const saveToRedis = async (id, token) => {
+	const redisData = await redis.get(id);
+	if (redisData !== undefined) {
+		const arr = redisData["access_tokens"];
+		arr.push(token);
+		await redis.set(id, { access_tokens: arr });
+	} else {
+		await redis.set(id, {
+			access_tokens: [token],
+		});
+	}
+};
+
+const deteteFromRedis = async (id, token) => {
+	const redisData = await redis.get(id);
+	const arr = redisData["access_tokens"].filter((v) => v !== token);
+	await redis.rewrite(id, { access_tokens: arr });
+};
+export {
+	isAuth,
+	saveToRedis,
+	deteteFromRedis,
+	createJwt,
+	authenticate,
+	authenticateGoogle,
+};

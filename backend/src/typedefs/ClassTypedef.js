@@ -18,6 +18,7 @@ const ClassTypedef = gql`
 	extend type Query {
 		class(filter: ClassFilter!): Class!
 		classes(filter: UserFilter!): [Class]!
+		students(filter: ClassFilter!): [Student]!
 		joinClass(filter: ClassFilter, student: UserFilter!): Boolean!
 		createClass(filter: UserFilter!): Class!
 		deleteClassTeacher(

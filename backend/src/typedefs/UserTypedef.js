@@ -35,7 +35,6 @@ const UserTypedef = gql`
 		meTeacher: Teacher!
 		meStudent: Student!
 		student(filter: UserFilter!): Student!
-		students(filter: UserFilter!): [Student]!
 		authGoogle(accessToken: String!, rollno: String): String!
 		logout: Boolean!
 	}
