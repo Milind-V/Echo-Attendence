@@ -1,9 +1,8 @@
-import React from "react";
 import { atom } from "recoil";
 
-const user = atom({
+const UserAtom = atom({
 	key: "user",
 	default: null,
 });
 
-export { user };
+export { UserAtom };

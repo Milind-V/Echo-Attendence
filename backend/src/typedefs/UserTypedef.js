@@ -21,14 +21,14 @@ const UserTypedef = gql`
 		firstName: String!
 		lastName: String!
 		googleProvider: SocialProvider
-		rollno: Int!
+		rollno: String!
 		class: [Class]
 	}
 
 	input UserFilter {
 		_id: ID
 		email: String
-		rollno: Int
+		rollno: String
 	}
 
 	extend type Query {

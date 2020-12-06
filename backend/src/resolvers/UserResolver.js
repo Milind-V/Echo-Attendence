@@ -24,11 +24,6 @@ const UserResolvers = {
 			if (auth) return await StudentModel.findOne(args.filter).exec();
 			else return ForbiddenError("User not found");
 		},
-		users: async (parent, args, context) => {
-			const auth = context.isAuth;
-			if (auth) return await StudentModel.find(args.filter).exec();
-			else return ForbiddenError("User not found");
-		},
 		authGoogle: async (parent, args, context) => {
 			context.req.body = {
 				...context.req.body,

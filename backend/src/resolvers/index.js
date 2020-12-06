@@ -3,4 +3,4 @@ import UserResolver from "./UserResolver";
 import ClassResolver from "./ClassResolver";
 import AttendenceResolver from "./AttendenceResolver";
 
-export default [...resolvers, UserResolver, ClassResolver, AttendenceResolver];
+export default [resolvers, UserResolver, ClassResolver, AttendenceResolver];

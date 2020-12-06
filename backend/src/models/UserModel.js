@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
 const studentSchema = new mongoose.Schema({
 	...userSchema.obj,
 	rollno: {
-		type: Number,
+		type: String,
 		required: false,
 		unique: true,
 	},
