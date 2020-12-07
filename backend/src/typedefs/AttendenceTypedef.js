@@ -2,8 +2,9 @@ import { gql } from "apollo-server";
 
 const AttendenceTypedef = gql`
 	type Attendence {
+		id: ID!
 		class: Class
-		date: Int!
+		date: String!
 		students: [Student]
 	}
 	input AttendenceFilter {

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { useLazyQuery } from "@apollo/client";
 
-import { Login, Home } from "./pages";
+import { Login, Home, Class } from "./pages";
 import { Navbar, Footer } from "./components";
 import { Atoms, GQL } from "./services";
 
@@ -62,6 +62,18 @@ const Routes = () => {
 							<Redirect to="/"></Redirect>
 						) : (
 							<Login props={props} onLogIn={onLogIn} />
+						)
+					}
+				/>
+				<Route
+					exact
+					strict
+					path="/class/:code"
+					render={(props) =>
+						user === null ? (
+							<Redirect to="/login"></Redirect>
+						) : (
+							<Class props={props} />
 						)
 					}
 				/>

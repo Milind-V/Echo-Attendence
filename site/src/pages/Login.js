@@ -55,6 +55,7 @@ const Login = ({ props, onLogIn }) => {
 												className="input"
 												type="text"
 												placeholder="Enter Roll No."
+												value={rollno}
 												onChange={(e) =>
 													setRollNo(
 														e.target

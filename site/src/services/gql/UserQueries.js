@@ -26,9 +26,10 @@ const ME_TEACHER = gql`
 			firstName
 			lastName
 			email
-			class {
+			classes {
 				id
 				code
+				title
 			}
 		}
 	}
