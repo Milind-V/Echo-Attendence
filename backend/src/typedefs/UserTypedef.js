@@ -12,7 +12,7 @@ const UserTypedef = gql`
 		firstName: String!
 		lastName: String!
 		googleProvider: SocialProvider
-		class: [Class]
+		classes: [Class]
 	}
 
 	type Student {

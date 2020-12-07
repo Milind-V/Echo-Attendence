@@ -1,3 +1,3 @@
-import { ME_STUDENT, ME_TEACHER, GOOGLE_AUTH } from "./UserQueries";
+import { ME_STUDENT, ME_TEACHER, GOOGLE_AUTH, LOGOUT } from "./UserQueries";
 
-export { ME_STUDENT, ME_TEACHER, GOOGLE_AUTH };
+export { ME_STUDENT, ME_TEACHER, GOOGLE_AUTH, LOGOUT };

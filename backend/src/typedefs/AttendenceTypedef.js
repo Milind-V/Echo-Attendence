@@ -3,19 +3,16 @@ import { gql } from "apollo-server";
 const AttendenceTypedef = gql`
 	type Attendence {
 		class: Class
-		date: DateTime!
+		date: Int!
 		students: [Student]
 	}
 	input AttendenceFilter {
 		_id: ID!
 	}
 	extend type Query {
-		attedences(filter: ClassFilter!): [Attendence]!
-		takeAttendence(filter: UserFilter!): Attendence!
-		markAttendence(
-			filter: AttendenceFilter!
-			userfilter: UserFilter!
-		): Boolean!
+		attendences(filter: ClassFilter!): [Attendence]!
+		takeAttendence(filter: ClassFilter!): Attendence!
+		markAttendence(filter: AttendenceFilter!): Boolean!
 	}
 `;
 

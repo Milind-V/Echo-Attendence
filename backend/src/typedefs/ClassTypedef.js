@@ -17,18 +17,10 @@ const ClassTypedef = gql`
 
 	extend type Query {
 		class(filter: ClassFilter!): Class!
-		classes(filter: UserFilter!): [Class]!
+		classes: [Class]!
 		students(filter: ClassFilter!): [Student]!
-		joinClass(filter: ClassFilter, student: UserFilter!): Boolean!
-		createClass(filter: UserFilter!): Class!
-		deleteClassTeacher(
-			filter: ClassFilter!
-			userFilter: UserFilter!
-		): Boolean!
-		deleteClassStudent(
-			filter: ClassFilter!
-			userFilter: UserFilter!
-		): Boolean!
+		joinClass(filter: ClassFilter): Boolean!
+		createClass(title: String!): Class!
 	}
 `;
 

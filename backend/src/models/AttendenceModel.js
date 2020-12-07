@@ -5,7 +5,7 @@ const attendenceSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "class",
 	},
-	date: { type: Date, default: Date.now },
+	date: { type: Number },
 	students: [
 		{
 			type: mongoose.Schema.Types.ObjectId,

@@ -40,4 +40,10 @@ const GOOGLE_AUTH = gql`
 	}
 `;
 
-export { ME_STUDENT, ME_TEACHER, GOOGLE_AUTH };
+const LOGOUT = gql`
+	query Logout {
+		logout
+	}
+`;
+
+export { ME_STUDENT, ME_TEACHER, GOOGLE_AUTH, LOGOUT };

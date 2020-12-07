@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { useLazyQuery } from "@apollo/client";
 
 import { Login, Home } from "./pages";
 import { Navbar, Footer } from "./components";
-import { Atoms, GQL, Selectors } from "./services";
+import { Atoms, GQL } from "./services";
 
 const Routes = () => {
 	const [user, setUser] = useRecoilState(Atoms.UserAtom);
@@ -15,6 +15,14 @@ const Routes = () => {
 	});
 	const [getTeacher] = useLazyQuery(GQL.ME_TEACHER, {
 		onCompleted: (data) => setUser(data.meTeacher),
+	});
+	const [logout] = useLazyQuery(GQL.LOGOUT, {
+		onCompleted: (data) => {
+			if (data.logout) {
+				localStorage.clear();
+				setUser(null);
+			}
+		},
 	});
 
 	useEffect(() => {
@@ -28,10 +36,11 @@ const Routes = () => {
 			else getTeacher();
 		}
 	};
+	const onLogOut = () => logout();
 
 	return (
 		<section className="hero is-fullheight">
-			<Navbar />
+			<Navbar onLogOut={onLogOut} user={user} />
 			<Switch>
 				<Route
 					exact

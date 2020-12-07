@@ -11,17 +11,26 @@ const UserResolvers = {
 	Query: {
 		meTeacher: async (parent, args, context) => {
 			const auth = context.isAuth;
-			if (auth) return await TeacherModel.findById(auth.id).exec();
+			if (auth)
+				return await TeacherModel.findById(auth.id)
+					.populate("classes")
+					.exec();
 			else return new AuthenticationError("Token not valid");
 		},
 		meStudent: async (parent, args, context) => {
 			const auth = context.isAuth;
-			if (auth) return await StudentModel.findById(auth.id).exec();
+			if (auth)
+				return await StudentModel.findById(auth.id)
+					.populate("classes")
+					.exec();
 			else return new AuthenticationError("Token not valid");
 		},
 		student: async (parent, args, context) => {
 			const auth = context.isAuth;
-			if (auth) return await StudentModel.findOne(args.filter).exec();
+			if (auth)
+				return await StudentModel.findOne(args.filter)
+					.populate("classes")
+					.exec();
 			else return ForbiddenError("User not found");
 		},
 		authGoogle: async (parent, args, context) => {
@@ -39,7 +48,11 @@ const UserResolvers = {
 						email: data.profile.emails[0].value,
 					}).exec();
 					if (user !== null) {
-						const token = createJwt(user.id, user.email);
+						const token = createJwt(
+							user.id,
+							user.email,
+							"student"
+						);
 						await saveToRedis(user.id, token);
 						return token;
 					}
@@ -54,7 +67,11 @@ const UserResolvers = {
 						rollno: args.rollno,
 					});
 					user = await user.save();
-					const token = createJwt(user.id, user.email);
+					const token = createJwt(
+						user.id,
+						user.email,
+						"student"
+					);
 					await saveToRedis(user.id, token);
 					return token;
 				}
@@ -62,7 +79,11 @@ const UserResolvers = {
 					email: data.profile.emails[0].value,
 				}).exec();
 				if (user !== null) {
-					const token = createJwt(user.id, user.email);
+					const token = createJwt(
+						user.id,
+						user.email,
+						"teacher"
+					);
 					await saveToRedis(user.id, token);
 					return token;
 				}
@@ -76,7 +97,7 @@ const UserResolvers = {
 					},
 				});
 				user = await user.save();
-				const token = createJwt(user.id, user.email);
+				const token = createJwt(user.id, user.email, "teacher");
 				await saveToRedis(user.id, token);
 				return token;
 			}

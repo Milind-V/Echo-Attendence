@@ -1,20 +1,17 @@
 import React, { useState } from "react";
 import { GoogleLogin } from "react-google-login";
 import { useLazyQuery } from "@apollo/client";
-import { useHistory } from "react-router";
 
-import { Atoms, GQL } from "../services";
+import { GQL } from "../services";
 
 const Login = ({ props, onLogIn }) => {
 	const [rollno, setRollNo] = useState("");
 	const [error, setError] = useState("");
-	let history = useHistory();
 	const [getToken] = useLazyQuery(GQL.GOOGLE_AUTH, {
 		onCompleted: (data) => {
 			if (data) {
 				localStorage.setItem("token", data.authGoogle);
 				onLogIn();
-				// history.push("/");
 			}
 		},
 	});
@@ -40,22 +37,22 @@ const Login = ({ props, onLogIn }) => {
 		<div className="hero-body">
 			<div className="container">
 				{error !== "" ? (
-					<div class="notification is-danger">{error}</div>
+					<div className="notification is-danger">{error}</div>
 				) : null}
 				<div className="columns">
 					<div className="column is-half">
-						<div class="hero is-medium">
-							<div class="hero-head">
+						<div className="hero is-medium">
+							<div className="hero-head">
 								<div className="is-size-3 has-text-centered">
 									Are you a Student?
 								</div>
 							</div>
-							<div class="hero-body">
+							<div className="hero-body">
 								<div className="container">
 									<div className="columns is-multiline">
 										<div className="column is-full">
 											<input
-												class="input"
+												className="input"
 												type="text"
 												placeholder="Enter Roll No."
 												onChange={(e) =>
@@ -91,14 +88,14 @@ const Login = ({ props, onLogIn }) => {
 							</div>
 						</div>
 					</div>
-					<div class="column is-half">
-						<div class="hero is-medium">
-							<div class="hero-head">
+					<div className="column is-half">
+						<div className="hero is-medium">
+							<div className="hero-head">
 								<div className="is-size-3 has-text-centered">
 									Are you a Teacher?
 								</div>
 							</div>
-							<div class="hero-body">
+							<div className="hero-body">
 								<div className="m-2 container has-text-centered">
 									<GoogleLogin
 										clientId={
