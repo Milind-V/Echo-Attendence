@@ -14,11 +14,14 @@ const Login = ({ props, onLogIn }) => {
 				onLogIn();
 			}
 		},
+		onError: (e) => setError(e.message),
 	});
 
 	const googleAuthHandler = (res) => {
 		if (res.error === "popup_closed_by_user") {
 			setError("PopUp closed by User");
+		} else if (res.error) {
+			setError(res.error);
 		} else {
 			if (rollno !== "") {
 				localStorage.setItem("type", "student");

@@ -10,6 +10,11 @@ const ClassRsolver = {
 				return await ClassModel.findOne(args.filter)
 					.populate("attendences")
 					.populate("teacher")
+					.populate("students")
+					.populate({
+						path: "attendences",
+						populate: { path: "students" },
+					})
 					.exec();
 			else return ForbiddenError("User not found");
 		},
@@ -39,7 +44,7 @@ const ClassRsolver = {
 					code: randCode(),
 				});
 				await classIns.save();
-				await TeacherModel.findOneAndUpdate(args.filter, {
+				await TeacherModel.findByIdAndDelete(auth.id, {
 					$push: { classes: classIns },
 				});
 				return classIns;
@@ -60,8 +65,12 @@ const ClassRsolver = {
 				const classIns = await ClassModel.findOne(
 					args.filter
 				).exec();
-				await StudentModel.findOneAndUpdate(args.filter, {
+				await StudentModel.findByIdAndUpdate(auth.id, {
 					$push: { classes: classIns },
+				});
+				const student = await StudentModel.findById(auth.id).exec();
+				await ClassModel.findOneAndUpdate(args.filter, {
+					$push: { students: student },
 				});
 				return true;
 			} else return new AuthenticationError("Token not valid");

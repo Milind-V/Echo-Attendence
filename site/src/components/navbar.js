@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 
 import { GQL } from "../services";
 
 const Navbar = ({ onLogOut, user }) => {
+	const [student, setStudent] = useState(false);
+
 	const [modalVisible, showModal] = useState(false);
 	const [title, setTitle] = useState("");
 	const [error, setError] = useState("");
@@ -12,14 +13,29 @@ const Navbar = ({ onLogOut, user }) => {
 
 	const [createClass] = useLazyQuery(GQL.CREATE_CLASS, {
 		onCompleted: (data) => setTeacherCode(data.createClass.code),
+		onError: (e) => setError(e.message),
 	});
-	const onCreateClass = () => {
-		if (title === "") setError("Title should not be empty");
+
+	const [joinClass] = useLazyQuery(GQL.JOIN_CLASS, {
+		onCompleted: (data) => showModal(false),
+		onError: (e) => setError(e.message),
+	});
+
+	const onSubmit = () => {
+		if (title === "")
+			setError(`${student ? "Title" : "Code"} should not be empty`);
 		else {
 			setError("");
-			createClass({ variables: { title } });
+			if (student) joinClass({ variables: { code: title } });
+			else createClass({ variables: { title } });
 		}
+		showModal(false);
 	};
+
+	useEffect(() => {
+		if (localStorage.getItem("type") === "student") setStudent(true);
+	}, []);
+
 	return (
 		<div className="hero-head">
 			<header className="navbar">
@@ -32,7 +48,9 @@ const Navbar = ({ onLogOut, user }) => {
 						<div className="modal-card">
 							<header className="modal-card-head">
 								<p className="modal-card-title">
-									Create Class
+									{`${
+										student ? "Join" : "Create"
+									} Class`}
 								</p>
 								<button
 									onClick={(e) => showModal(false)}
@@ -45,7 +63,17 @@ const Navbar = ({ onLogOut, user }) => {
 										{error}
 									</div>
 								) : null}
-								{codeTeacher !== "" ? (
+								{student ? (
+									<input
+										className="input"
+										type="text"
+										placeholder="Enter Code of Class"
+										value={title}
+										onChange={(e) =>
+											setTitle(e.target.value)
+										}
+									/>
+								) : codeTeacher !== "" ? (
 									<div>Code: {codeTeacher}</div>
 								) : (
 									<input
@@ -61,14 +89,11 @@ const Navbar = ({ onLogOut, user }) => {
 							</section>
 							<footer className="modal-card-foot">
 								<button
-									onClick={onCreateClass}
+									onClick={onSubmit}
 									className="button is-success">
-									Create Class
-								</button>
-								<button
-									className="button"
-									onClick={(e) => showModal(false)}>
-									Cancel
+									{`${
+										student ? "Join" : "Create"
+									} Class`}
 								</button>
 							</footer>
 						</div>
@@ -86,24 +111,19 @@ const Navbar = ({ onLogOut, user }) => {
 							<div className="navbar-end">
 								<div className="navbar-item">
 									<div className="buttons">
-										{user.rollno ? (
-											<button className="button is-primary">
-												<strong>
-													Join Class
-												</strong>
-											</button>
-										) : (
-											<button
-												onClick={(e) =>
-													showModal(true)
-												}
-												className="button is-primary">
-												<strong>
-													Create Class
-												</strong>
-											</button>
-										)}
-
+										<button
+											onClick={(e) =>
+												showModal(true)
+											}
+											className="button is-primary">
+											<strong>
+												{`${
+													student
+														? "Join"
+														: "Create"
+												} Class`}
+											</strong>
+										</button>
 										<button
 											onClick={onLogOut}
 											className="button is-danger">

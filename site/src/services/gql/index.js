@@ -1,5 +1,11 @@
 import { ME_STUDENT, ME_TEACHER, GOOGLE_AUTH, LOGOUT } from "./UserQueries";
-import { CREATE_CLASS, CLASS, TAKE_ATTENDENCE } from "./ClassQueries";
+import {
+	CREATE_CLASS,
+	CLASS,
+	TAKE_ATTENDENCE,
+	JOIN_CLASS,
+	MARK_ATTENDENCE,
+} from "./ClassQueries";
 
 export {
 	ME_STUDENT,
@@ -9,4 +15,6 @@ export {
 	CREATE_CLASS,
 	CLASS,
 	TAKE_ATTENDENCE,
+	JOIN_CLASS,
+	MARK_ATTENDENCE,
 };

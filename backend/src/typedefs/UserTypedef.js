@@ -22,7 +22,7 @@ const UserTypedef = gql`
 		lastName: String!
 		googleProvider: SocialProvider
 		rollno: String!
-		class: [Class]
+		classes: [Class]
 	}
 
 	input UserFilter {

@@ -8,12 +8,10 @@ const ME_STUDENT = gql`
 			lastName
 			email
 			rollno
-			class {
+			classes {
 				id
-				teacher {
-					firstName
-					lastName
-				}
+				title
+				code
 			}
 		}
 	}

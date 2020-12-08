@@ -7,6 +7,13 @@ const CREATE_CLASS = gql`
 		}
 	}
 `;
+
+const JOIN_CLASS = gql`
+	query JoinClass($code: String!) {
+		joinClass(filter: { code: $code })
+	}
+`;
+
 const CLASS = gql`
 	query Class($code: String!) {
 		class(filter: { code: $code }) {
@@ -39,4 +46,9 @@ const TAKE_ATTENDENCE = gql`
 	}
 `;
 
-export { CREATE_CLASS, CLASS, TAKE_ATTENDENCE };
+const MARK_ATTENDENCE = gql`
+	query MarkAttendence($id: ID!) {
+		markAttendence(filter: { _id: $id })
+	}
+`;
+export { CREATE_CLASS, CLASS, TAKE_ATTENDENCE, JOIN_CLASS, MARK_ATTENDENCE };
