@@ -8,7 +8,10 @@ const AttendenceResolver = {
 			if (auth) {
 				const classIns = await ClassModel.findOne(args.filter)
 					.populate("attendences")
-					.populate("students")
+					.populate({
+						path: "attendences",
+						populate: { path: "students" },
+					})
 					.exec();
 				return classIns.attendences;
 			} else return new AuthenticationError("Token not valid");
