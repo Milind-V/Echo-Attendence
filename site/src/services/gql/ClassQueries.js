@@ -28,6 +28,7 @@ const CLASS = gql`
 				id
 				date
 				students {
+					id
 					firstName
 					lastName
 					rollno

@@ -7,6 +7,8 @@ const quiet = require("quietjs-bundle");
 
 const Class = ({ props }) => {
 	const [student, setStudent] = useState(false);
+	const [cIndex, setIndex] = useState(-1);
+	const [modalVisible, showModal] = useState(false);
 	const { code } = useParams();
 	const { loading, error, data } = useQuery(GQL.CLASS, {
 		variables: { code },
@@ -53,6 +55,56 @@ const Class = ({ props }) => {
 	return (
 		<div className="hero-body is-align-items-start">
 			<div className="container">
+				{student ? null : cIndex === -1 ? null : (
+					<div
+						className={`modal${
+							modalVisible ? " is-active" : ""
+						}`}>
+						<div className="modal-background"></div>
+						<div className="modal-card">
+							<header className="modal-card-head">
+								<p className="modal-card-title">
+									Students
+								</p>
+								<button
+									onClick={(e) => showModal(false)}
+									className="delete"
+									aria-label="close"></button>
+							</header>
+							<section className="modal-card-body">
+								<table className="table is-fullwidth">
+									<thead>
+										<tr>
+											<th>Roll no.</th>
+											<th>First Name</th>
+											<th>Last Name</th>
+										</tr>
+									</thead>
+									<tbody>
+										{data.class.attendences[
+											cIndex
+										].students.map((item) => (
+											<tr key={item.id}>
+												<td>
+													{item.rollno}
+												</td>
+												<td>
+													{
+														item.firstName
+													}
+												</td>
+												<td>
+													{item.lastName}
+												</td>
+											</tr>
+										))}
+									</tbody>
+								</table>
+							</section>
+						</div>
+					</div>
+				)}
+
 				{student ? null : (
 					<div className="has-text-right">
 						<button
@@ -82,24 +134,29 @@ const Class = ({ props }) => {
 						<tbody>
 							{data.class.attendences.map(
 								(item, index) => (
-									<tr key={item.id}>
-										<th>
+									<tr
+										key={item.id}
+										onClick={(e) => {
+											setIndex(index);
+											showModal(true);
+										}}>
+										<td>
 											Attendence {index + 1}
-										</th>
-										<th>
+										</td>
+										<td>
 											{new Date(
 												parseInt(item.date)
 											).toUTCString()}
-										</th>
-										<th>
+										</td>
+										<td>
 											{item.students.length}
-										</th>
-										<th>
+										</td>
+										<td>
 											{(item.students.length /
 												data.class.students
 													.length) *
 												100}
-										</th>
+										</td>
 									</tr>
 								)
 							)}
