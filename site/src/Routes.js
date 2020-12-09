@@ -4,7 +4,8 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { useLazyQuery } from "@apollo/client";
 
 import { Login, Home, Class } from "./pages";
-import { Navbar, Footer } from "./components";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import { Atoms, GQL } from "./services";
 
 const Routes = () => {
