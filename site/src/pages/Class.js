@@ -31,7 +31,16 @@ const Class = ({ props }) => {
 		},
 	});
 	const [markAttendence] = useLazyQuery(GQL.MARK_ATTENDENCE);
-
+	// const tap = () => {
+	// 	quiet.addReadyCallback(() => {
+	// 		const transmit = quiet.transmitter({
+	// 			profile: "audible",
+	// 		});
+	// 		transmit.transmit(
+	// 			quiet.str2ab(`5fce82bd53430700963842b4;${Date.now()}`)
+	// 		);
+	// 	});
+	// };
 	useEffect(() => {
 		if (localStorage.getItem("type") === "student") {
 			setStudent(true);
@@ -40,6 +49,7 @@ const Class = ({ props }) => {
 					profile: "audible",
 					onReceive: (payload) => {
 						const data = quiet.ab2str(payload);
+						console.log(data);
 						const arr = data.split(";");
 						// if (Date.now() < parseInt(arr[1]))
 						markAttendence({
@@ -108,8 +118,12 @@ const Class = ({ props }) => {
 				{student ? null : (
 					<div className="has-text-right">
 						<button
-							onClick={(e) =>
-								takeAttendence({ variables: { code } })
+							onClick={
+								(e) =>
+									takeAttendence({
+										variables: { code },
+									})
+								// tap()
 							}
 							className="button is-success">
 							Take Attendence
