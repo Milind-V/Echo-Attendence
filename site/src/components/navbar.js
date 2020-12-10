@@ -27,9 +27,11 @@ const Navbar = ({ onLogOut, user }) => {
 		else {
 			setError("");
 			if (student) joinClass({ variables: { code: title } });
-			else createClass({ variables: { title } });
+			else {
+				createClass({ variables: { title } });
+				showModal(false);
+			}
 		}
-		showModal(false);
 	};
 
 	useEffect(() => {

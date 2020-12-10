@@ -44,7 +44,7 @@ const ClassRsolver = {
 					code: randCode(),
 				});
 				await classIns.save();
-				await TeacherModel.findByIdAndDelete(auth.id, {
+				await TeacherModel.findByIdAndUpdate(auth.id, {
 					$push: { classes: classIns },
 				});
 				return classIns;
