@@ -26,11 +26,10 @@ const Navbar = ({ onLogOut, user }) => {
 			setError(`${student ? "Title" : "Code"} should not be empty`);
 		else {
 			setError("");
-			if (student) joinClass({ variables: { code: title } });
-			else {
-				createClass({ variables: { title } });
+			if (student) {
+				joinClass({ variables: { code: title } });
 				showModal(false);
-			}
+			} else createClass({ variables: { title } });
 		}
 	};
 
