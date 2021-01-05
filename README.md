@@ -5,7 +5,7 @@ Echo-based Autonomous Real Time Attendance System in DoS protocol (Data over Sou
 ## CONTENTS
 1. [Abstract](#abstract)
 2. [Introduction](#introduction)
-3. [Objectives]
+3. [Objectives](#objectives--importnce-of-the-project)
 
 ## Abstract
 Overcoming the difficulties of manual attendance, the Echo-based Realtime (E.A.R.) Attendance System provides an effective and efficient way for recording and maintaining attendance of students in an institute on daily basis. The conventional method of taking attendance by calling names or signing is very timeconsuming, tedious, and insecure. It left a lot of holes in effectiveness, such as missing records, paper consumption, tardy reports, etc.
